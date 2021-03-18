@@ -16,7 +16,7 @@ class AABB {
 
         bool intersect(const ray& r, double t_min, double t_max) const; 
 
-        AABB surrounding_box(AABB box0, AABB box1);
+        AABB surrounding_box(const AABB& box0, const AABB& box1);
 };
 
 inline point3 AABB::min() const {return minimum; }

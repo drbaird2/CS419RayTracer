@@ -38,7 +38,7 @@ bool Sphere::intersect(const ray& r, double t_min, double t_max, recent_hits& re
     return true;                
 }
 
-bool Sphere::bounding_box(aabb& bounder) const {
-    bounder = aabb( center - vec3(radius, radius, radius), center + vec3(radius, radius, radius));
+bool Sphere::bounding_box(AABB& bounder) const {
+    bounder = AABB( center - vec3(radius, radius, radius), center + vec3(radius, radius, radius));
     return true;
 }

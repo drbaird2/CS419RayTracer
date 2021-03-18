@@ -37,7 +37,7 @@ class Object{
         Color col;
     public:
         virtual bool intersect(const ray& r, double t_min, double t_max, recent_hits& record) const = 0;
-        virtual bool bounding_box(aabb& bounder) const = 0;
+        virtual bool bounding_box(AABB& bounder) const = 0;
 };
 
 //The class used to make a list of all the hitable objects in a scene
@@ -75,10 +75,10 @@ class Scene : public Object{
             return collided;
         } 
 
-        virtual bool bounding_box(aabb& bounder) const override{
+        virtual bool bounding_box(AABB& bounder) const override{
             if(items_in_scene.empty()) return false;
 
-            aabb temp_box;
+            AABB temp_box;
             bool first_box = true;
 
             for(const auto& item: items_in_scene){
