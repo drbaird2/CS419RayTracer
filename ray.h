@@ -1,6 +1,4 @@
 /*This is the ray library that was provided in the book, No modifications*/
-
-
 #ifndef RAY_H
 #define RAY_H
 

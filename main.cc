@@ -1,7 +1,7 @@
 #include "color.h"
 #include "ray.h"
 #include "vec3.h"
-#include "object.h"
+#include "Objects\object.h"
 #include "camera.h"
 #include "light.h"
 #include <iostream>
