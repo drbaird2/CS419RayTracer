@@ -3,6 +3,7 @@
 
 #include "ray.h"
 #include "color.h"
+#include "recent_hits.h"
 #include <memory>
 #include <vector>
 #include "aabb.h"
@@ -12,29 +13,13 @@ using std::make_shared;
 
 
 //A struct to store the nearest hit object as well as the hit itself and it's normal
-struct recent_hits{
-    point3 origin;
-    vec3 normal;
-    double t;
-    Color col;
-    bool front_face;
 
-//a function to set which side of the surface is the outwardfacing normal
-    inline void set_face_normal(const ray& r, const vec3& outward_normal){
-        front_face = dot(r.direction(), outward_normal)<0;
-        if(front_face){
-            normal = outward_normal;
-        }else{
-            normal = -outward_normal;
-        }
-    }
-};
 
 
 //base class for all hittiable objects, includes a virtual intersection function
 class Object{
     public:
-        Color col;
+        Material* material_type;
     public:
         virtual bool intersect(const ray& r, double t_min, double t_max, recent_hits& record) const = 0;
         virtual bool bounding_box(AABB& bounder) const = 0;

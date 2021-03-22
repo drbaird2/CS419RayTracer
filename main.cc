@@ -1,11 +1,14 @@
 #include "color.h"
 #include "ray.h"
 #include "vec3.h"
-#include "Objects\object.h"
+#include "object.h"
 #include "camera.h"
 #include "light.h"
 #include <iostream>
 #include <limits>
+#include "plane.h"
+#include "sphere.h"
+#include "triangle.h"
 
 //Function used to find the closest intersection and color it.
 Color ray_color(const ray& r, const Object& wonderland, const Light& wonderland_lighting) {
