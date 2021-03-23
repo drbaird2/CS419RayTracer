@@ -49,15 +49,7 @@ class Color{
 
         void write_color(std::ostream &out, Color pixel_color);		
 
-        //Some common numbers for colors I think are pretty
-        Color white();
-        Color solidRed();
-        Color solidGreen();
-        Color solidBlue();
-        Color crimson();
-        Color cerulean();
-        Color gray();
-        Color black();
+
 
 };
 
@@ -100,7 +92,7 @@ inline Color Color::operator*(double scalar) const {
 }
 
 inline Color Color::operator/(double scalar) const {
-    return c*(1/t);
+    return Color(red/scalar,green/scalar,blue/scalar);
 }
 
 inline Color& Color::operator+= (const Color& c) {

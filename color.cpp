@@ -41,15 +41,3 @@ void Color::write_color(std::ostream &out, Color pixel_color) {
     << static_cast<int>(255.999 * pixel_color.getBlue()) << '\n';
 }
 
-//Some common numbers for colors I think are pretty
-Color Color::white(){ return Color(1.0, 1.0, 1.0);}
-Color Color::solidRed(){ return Color(1.0 ,0.0 ,0.0);}
-Color Color::solidGreen(){ return Color(0.0 ,1.0 ,0.0);}
-Color Color::solidBlue(){ return Color(0.0 ,0.0 ,1.0);}
-Color Color::crimson(){ return Color(0.5, 0.25, 0.25);}
-Color Color::cerulean(){ return Color(0.0, 1.0, 1.0);}
-Color Color::gray(){return Color(0.5, 0.5, 0.5);}
-Color Color::black(){return Color(0.0, 0.0, 0.0);}
-
-
-

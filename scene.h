@@ -21,8 +21,7 @@ class Scene {
 	
 		ViewPlane					vp;
 		Color					    background_color;
-		//Tracer*						tracer_ptr;
-		Sphere 						sphere;		
+		//Tracer*						tracer_ptr;	
 		vector<Object*>	objects;		
 			
 

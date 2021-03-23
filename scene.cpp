@@ -1,7 +1,7 @@
 // this file contains the definition of the World class
 
 #include "scene.h"
-//#include "Constants.h"
+#include "constants.h"
 
 // geometric objects
 
@@ -29,13 +29,11 @@
 // -------------------------------------------------------------------- default constructor
 
 Scene::Scene(void)
-	:  	background_color(),
+	:  	background_color()
 		//tracer_ptr(NULL)
 {}
 
 
-
-//------------------------------------------------------------------ destructor
 
 
 
@@ -83,9 +81,9 @@ void Scene::display_pixel(const int row, const int column, const Color& raw_colo
    int x = column;
    int y = vp.vres - row - 1;
 
-   paintArea->setPixel(x, y, (int)(mapped_color.r * 255),
-                             (int)(mapped_color.g * 255),
-                             (int)(mapped_color.b * 255));
+   //paintArea->setPixel(x, y, (int)(mapped_color.r * 255),
+     //                        (int)(mapped_color.g * 255),
+       //                      (int)(mapped_color.b * 255));
 }
 
 
@@ -93,37 +91,18 @@ void Scene::display_pixel(const int row, const int column, const Color& raw_colo
 // ----------------------------------------------------------------------------- hit_bare_bones_objects
 
 recent_hits Scene::intersect(const ray& ra) {
-	recent_hits	records; 
+	recent_hits	records(*this); 
 	double		t_min; 			
 	double		t_max 			= kHugeValue;
 	int 		num_objects 	= objects.size();
 	
 	for (int j = 0; j < num_objects; j++)
 		if (objects[j]->intersect(ra, t_min, t_max, records) {
-			sr.hit_an_object	= true;
-			t_min 				= t; 
+			records.colided	    = true;
+			t_max 				= t_min; 
 			records.color		= objects[j]->get_color(); 
 		}
-		
-	return (sr);   
+    
+	return (records);   
 }
-
-
-//------------------------------------------------------------------ delete_objects
-
-// Deletes the objects in the objects array, and erases the array.
-// The objects array still exists, because it's an automatic variable, but it's empty 
-
-void
-World::delete_objects(void) {
-	int num_objects = objects.size();
-	
-	for (int j = 0; j < num_objects; j++) {
-		delete objects[j];
-		objects[j] = NULL;
-	}	
-	
-	objects.erase (objects.begin(), objects.end());
-}
-
 
