@@ -1,9 +1,9 @@
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\main.cpp"
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer//"
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\main.cpp"
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\main.cpp"
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 1
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\main.cpp"
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 1
 
 
 
@@ -12727,14 +12727,14 @@ namespace std
 
 }
 # 70 "C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/vector" 2 3
-# 7 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
+# 7 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
 
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\viewPlane.h" 1
-
-
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\viewPlane.h" 1
 
 
-# 4 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\viewPlane.h"
+
+
+# 4 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\viewPlane.h"
 class ViewPlane {
  public:
   int hres;
@@ -12774,17 +12774,17 @@ inline void ViewPlane::set_pixel_size(const float size) {
 inline void ViewPlane::set_samples(const int n) {
  num_samples = n;
 }
-# 9 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\color.h" 1
+# 9 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\color.h" 1
 
 
 
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\ray.h" 1
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\ray.h" 1
 
 
 
 
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\vec3.h" 1
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\vec3.h" 1
 
 
 
@@ -15535,7 +15535,7 @@ namespace std
 
 
 }
-# 7 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\vec3.h" 2
+# 7 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\vec3.h" 2
 # 1 "C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iostream" 1 3
 # 36 "C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iostream" 3
        
@@ -32636,10 +32636,10 @@ namespace std
 
 
 }
-# 8 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\vec3.h" 2
+# 8 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\vec3.h" 2
 
 
-# 9 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\vec3.h"
+# 9 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\vec3.h"
 using std::sqrt;
 using std::fabs;
 
@@ -32737,7 +32737,7 @@ inline vec3 cross(const vec3 &u, const vec3 &v) {
 inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
-# 6 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\ray.h" 2
+# 6 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\ray.h" 2
 
 class ray {
     public:
@@ -32757,7 +32757,7 @@ class ray {
         point3 orig;
         vec3 dir;
 };
-# 5 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\color.h" 2
+# 5 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\color.h" 2
 # 1 "C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/limits" 1 3
 # 40 "C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/limits" 3
        
@@ -34217,13 +34217,13 @@ namespace std
 
 
 }
-# 6 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\color.h" 2
+# 6 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\color.h" 2
 
 
 
 
 
-# 10 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\color.h"
+# 10 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\color.h"
 class Color{
     public:
         double red, green, blue;
@@ -34330,12 +34330,12 @@ inline Color& Color::operator/= (const float scalar) {
 inline bool Color::operator== (const Color& c) const {
  return (red == c.red && green == c.green && blue == c.blue);
 }
-# 10 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\tracer.h" 1
+# 10 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\tracer.h" 1
 
 
 
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\constants.h" 1
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\constants.h" 1
 
 
 
@@ -34384,11 +34384,11 @@ using std::system;
 
 using std::wcstombs;
 using std::wctomb;
-# 5 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\constants.h" 2
+# 5 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\constants.h" 2
 
 
 
-# 7 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\constants.h"
+# 7 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\constants.h"
 const double PI = 3.1415926535897932384;
 const double TWO_PI = 6.2831853071795864769;
 const double PI_ON_180 = 0.0174532925199432957;
@@ -34410,11 +34410,11 @@ const Color gray(0.5, 0.5, 0.5);
 
 
 const float invRAND_MAX = 1.0 / (float)
-# 27 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\constants.h" 3
+# 27 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\constants.h" 3
                                        0x7fff
-# 27 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\constants.h"
+# 27 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\constants.h"
                                                ;
-# 5 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\tracer.h" 2
+# 5 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\tracer.h" 2
 
 
 
@@ -34436,8 +34436,8 @@ class Tracer {
 
   Scene* scene_ptr;
 };
-# 11 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\object.h" 1
+# 11 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\object.h" 1
 
 
 
@@ -34525,23 +34525,23 @@ using std::scalbln;
 using std::scalbn;
 using std::tgamma;
 using std::trunc;
-# 5 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\object.h" 2
+# 5 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\object.h" 2
 
 
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\recent_hits.h" 1
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\recent_hits.h" 1
 
 
 
 
 
-# 5 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\recent_hits.h"
+# 5 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\recent_hits.h"
 class Material;
 class Scene;
 
 
 
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\object.h" 1
-# 11 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\recent_hits.h" 2
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\object.h" 1
+# 11 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\recent_hits.h" 2
 
 class recent_hits {
     public:
@@ -34559,7 +34559,7 @@ class recent_hits {
   recent_hits(const recent_hits& sr);
 
 };
-# 8 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\object.h" 2
+# 8 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\object.h" 2
 
 
 
@@ -34619,9 +34619,9 @@ inline void Object::set_color(const double r, const double g, const double b){
 inline Color Object::get_color(){
     return col;
 }
-# 12 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
+# 12 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
 
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\camera.h" 1
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\camera.h" 1
 
 
 
@@ -34683,9 +34683,9 @@ inline void Camera::set_updir(const vec3& up){
 inline void Camera::set_updir(const double x, const double y, const double z){
     updir = vec3(x,y,z);
 }
-# 14 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\light.h" 1
-# 10 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\light.h"
+# 14 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\light.h" 1
+# 10 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\light.h"
 class recent_hits;
 
 class Light{
@@ -34703,8 +34703,8 @@ class Light{
         virtual Color L(recent_hits& record);
 
 };
-# 15 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\ambient.h" 1
+# 15 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
+# 1 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\ambient.h" 1
 
 
 
@@ -34749,26 +34749,18 @@ inline void Ambient::scale_radiance(const double b) {
  ls = b;
 }
 
-
-
 inline void Ambient::set_color(const double c) {
  color.red = c; color.green = c; color.blue = c;
 }
-
-
-
 
 inline void Ambient::set_color(const Color& c) {
  color = c;
 }
 
-
-
-
 inline void Ambient::set_color(const double r, const double g, const double b) {
  color.red = r; color.green = g; color.blue = b;
 }
-# 16 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
+# 16 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 2
 
 using namespace std;
 
@@ -34833,7 +34825,7 @@ inline void Scene::set_ambient_light(Light* light_ptr){
 inline void Scene::set_camera(Camera* cam_ptr){
  camera_ptr = cam_ptr;
 }
-# 2 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\main.cpp" 2
+# 2 "C:\\Users\\Fab Lab\\Desktop\\Tracer\\CS419RayTracer\\main.cpp" 2
 
 
 
