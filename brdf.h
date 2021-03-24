@@ -1,9 +1,6 @@
 #ifndef BRDF_H
 #define BRDF_H
 
-// BRDF is the base class for the BRDFs
-// we need a sampler here, because even a Matte material needs to call sample_f with a 
-// cosine distribution for path shading. 
 
 #include "Color.h"
 #include "vec3.h"
