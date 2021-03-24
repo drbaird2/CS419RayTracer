@@ -1,74 +1,64 @@
-//This was my attempt to create a moveable camera, in the end it wouldn't work so I didn't use it.
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "ray.h"
-
+#include "vec3.h"
 
 class Camera {
     public:
-        point3 eye;
-        vec3 dir;
-        vec3 upDir;
+        point3 eye, lookAt;
+        vec3 updir;
         vec3 w,u,v;
-        double dist;
-        bool perp;
+
     public:
-        Camera() : eye(point3(0,0,0)), dir(vec3(0,0,1)), upDir(vec3(0,0,0)), dist(1.0), perp(true) {}
-        Camera(const point3& eyepoint, const vec3& direction, const vec3& up, double distance, bool perspective)
-            : eye(eyepoint), dir(direction), upDir(up), dist(distance), perp(perspective)
-        {}
+        Camera();
 
-        point3 eyepoint() const  { return eye; }
-        vec3 direction() const { return dir; }
-        vec3 up() const { return upDir;}
-        double distance() { return dist;}
-        
-        
-         
+        Camera(const Camera& camera);
 
-        
+        virtual Camera* clone(void) const = 0;
 
+        virtual void render_scene(const Scene& scene_ref) = 0;
 
-        double aspect = 4.0/3.0;
-        double hres = 500.0;
-        double vres = hres/aspect;
-        double field_of_view = 60.0;
+        void set_eye(const point3& p);
 
-        double screen_height = 3.0;
-        double screen_width = aspect * screen_height;
+        void set_eye(const double x, const double y, const double z);
 
-        vec3 horizon = vec3(screen_width, 0, 0);
-        vec3 vertrizon = vec3(0, screen_height, 0);
-        vec3 lower_left_screen_corner = eye - horizon/2 - vertrizon/2 - vec3(0, 0, dist);
+        void set_look(const point3& at);
 
-        
+        void set_look(const double x, const double y, const double z);
 
-        //double deltax = 0.5;
-        //double deltay = 0.5;
-        //double pixelsize = 1;
-        void uvwBase(){
-            w = unit_vector(eye - dir);
-            u = unit_vector(cross(upDir,w));
-            v = cross(w,u);
-        }
+        void set_updir(const vec3& up);
 
-        ray getRay(double xpoint, double ypoint){
-            if(perp){
-                
-                vec3 direction = xpoint*u + ypoint*v - dist*w;
-                return ray(eye,unit_vector(direction));
-            }else{
-                vec3 direction = eye - dir;
-                return ray(vec3(xpoint,ypoint,0),  unit_vector(direction));
+        void set_updir(const double x, const double y, const double z);
 
-            }
-            
-        }
+        void uvwBase(void);
 
+        Camera& operator= ( const Camera& camera);
     
 };
 
+inline void Camera::set_eye(const point3& p){
+    eye = p;
+}
+
+inline void Camera::set_eye(const double x, const double y, const double z){
+    eye. = point3(x,y,z);
+}
+
+inline void Camera::set_look(point3& p){
+    lookAt = p
+}
+
+inline void Camera::set_look(const double x, const doubley, const double z){
+    lookAt = point3(x,y,z);
+}
+
+inline void Camera::set_updir(const vec3& up){
+    updir = up;
+}
+
+inline void Camera::set_updir(const double x, const double y, const double z){
+    updir = vec3(x,y,z);
+}
 
 
 #endif

@@ -1,4 +1,3 @@
-
 #ifndef LAMBERTIAN_H
 #define LAMBERTIAN_H
 
@@ -19,7 +18,7 @@ class Lambertian: public BRDF
 		
 		virtual Color f(const recent_hits& sr, const vec3& wo, const vec3& wi) const;
 		
-		virtual Color sample_f(const recent_hits& sr, const vec3& wo, vec3& wi, float& pdf) const;
+		virtual Color sample_f(const recent_hits& sr, const vec3& wo, vec3& wi, double& pdf) const;
 		
 		virtual Color rho(const recent_hits& sr, const vec3& wo) const;
 			
@@ -35,7 +34,7 @@ class Lambertian: public BRDF
 					
 	public:
 	
-		float		kd;
+		double		kd;
 		Color 	    cd;
 };
 

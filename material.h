@@ -14,10 +14,12 @@ class Material {
 		Material(void);						
 		
 		Material(const Material& material); 
+
+		virtual Material* clone(void) const = 0;
 				
 		virtual Color shade(recent_hits& sr);	
 		
-	protected:
+	public:
 	
 		Material& operator= (const Material& rhs);						
 };

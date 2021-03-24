@@ -5,40 +5,23 @@
 
 #include "ray.h"
 #include "color.h"
-#include <memory>
-#include <vector>
+#include "vec3.h"
 
-using std::shared_ptr;
-using std::make_shared;
-
+class recent_hits;
 
 class Light{
     public:
-        point3 pos;
-        Color color;
-    public:
-        Light() : pos(point3(0,0,0)), color(Color()) {}
-        
-        Light(const point3& position, Color col) : pos(position), color(col){}
+        Light();
 
-        point3 getPosition(){return pos;}
-        Color getColor(){return color;}
+        Light(const Light& ls);
 
+        Light& operator= (const Light& rhs);
 
+        virtual Light* clone(void) const = 0;
 
-};
+        virtual vec3 get_direction(recent_hits& record) = 0;
 
-class Chandelier : public Light{
-    public:
-        std::vector<shared_ptr<Light>> lights_on_chandelier;
-    public:
-        Chandelier(){}
-        Chandelier(shared_ptr<Light> candle) {add(candle);}
-
-        void clear() {lights_on_chandelier.clear();}
-        void add(shared_ptr<Light> candle){ lights_on_chandelier.push_back(candle);}
-
-
+        virtual Color L(recent_hits& record);
 
 };
 

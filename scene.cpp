@@ -1,7 +1,7 @@
-// this file contains the definition of the World class
 
 #include "scene.h"
 #include "constants.h"
+#include "color.h"
 
 // geometric objects
 
@@ -11,26 +11,40 @@
 
 // tracers
 
-//#include "SingleSphere.h"
-//#include "MultipleObjects.h"
+#include "raycast.h"
+
+//cameras
+#include "pinhole.h"
+
+//lights
+//#include "directional.h"
+//#include "pointlight.h"
+#include "ambient.h"
+
+//materials
+#include "matte.h"
 
 // utilities
 
 #include "recent_hits.h"
-//#include "Maths.h"
+#include "vec3.h"
+#include "Maths.h"
 
 // build functions
 
 //#include "BuildSingleSphere.cpp"
 //#include "BuildMultipleObjects.cpp"
 //#include "BuildBBCoverPic.cpp"
+#include "buildSnowman.cpp"
 
 
 // -------------------------------------------------------------------- default constructor
 
 Scene::Scene(void)
-	:  	background_color()
-		//tracer_ptr(NULL)
+	:  	background_color(black),
+		tracer_ptr(NULL),
+		ambient_ptr(new Ambient),
+		camera_ptr(NULL)
 {}
 
 
@@ -51,13 +65,17 @@ void Scene::render_scene(void) const {
 	float		zw		= 100.0;			// hardwired in
 
 	ra.dir = vec3(0, 0, -1);
-	
-	for (int r = 0; r < vres; r++)			// up
+	std::cout << "P3\n" << vres << " " << hres << "\n255\n";
+	for (int r = 0; r < vres; r++){			// up
+		std::cerr << "\rRendering: " << r << ' ' << std::flush;
 		for (int c = 0; c <= hres; c++) {	// across 					
 			ra.orig = point3(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
 			pixel_color = tracer_ptr->trace_ray(ra);
+			pixel_color.write_color(std::cout, pixel_color);
 			display_pixel(r, c, pixel_color);
-		}	
+		}
+	}
+	std::cerr << "\nDone.\n";
 }  
 
 
@@ -96,13 +114,13 @@ recent_hits Scene::intersect(const ray& ra) {
 	double		t_max 			= kHugeValue;
 	int 		num_objects 	= objects.size();
 	
-	for (int j = 0; j < num_objects; j++)
+	for (int j = 0; j < num_objects; j++){
 		if (objects[j]->intersect(ra, t_min, t_max, records) {
 			records.colided	    = true;
 			t_max 				= t_min; 
 			records.color		= objects[j]->get_color(); 
 		}
-    
+	}
 	return (records);   
 }
 
