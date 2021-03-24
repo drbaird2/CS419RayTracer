@@ -35,28 +35,20 @@ class Ambient: public Light {
 
 
 
-
-// ------------------------------------------------------------------------------- scale_radiance
-
+/*------------------------------------------
+// setters
+--------------------------------------------*/
 inline void Ambient::scale_radiance(const double b) { 
 	ls = b;
 }
-
-// ------------------------------------------------------------------------------- set_color
 
 inline void Ambient::set_color(const double c) {
 	color.red = c; color.green = c; color.blue = c;
 }
 
-
-// ------------------------------------------------------------------------------- set_color
-
 inline void Ambient::set_color(const Color& c) {
 	color = c;
 }
-
-
-// ------------------------------------------------------------------------------- set_color
 
 inline void Ambient::set_color(const double r, const double g, const double b) {
 	color.red = r; color.green = g; color.blue = b;
