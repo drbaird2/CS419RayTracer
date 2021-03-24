@@ -33,6 +33,8 @@ class Object{
 
         void set_color(const double r, const double g, const double b);
 
+        Color get_color();
+
         virtual void add_object(Object* object_ptr);
         
         //virtual void set_bounding_box();

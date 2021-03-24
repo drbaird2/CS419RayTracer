@@ -1,8 +1,9 @@
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\main.cpp"
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp"
 # 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\main.cpp"
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp"
+
 # 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.h" 1
 
 
@@ -34588,6 +34589,8 @@ class Object{
 
         void set_color(const double r, const double g, const double b);
 
+        Color get_color();
+
         virtual void add_object(Object* object_ptr);
 
 
@@ -34831,16 +34834,859 @@ inline void Scene::set_ambient_light(Light* light_ptr){
 inline void Scene::set_camera(Camera* cam_ptr){
  camera_ptr = cam_ptr;
 }
-# 2 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\main.cpp" 2
+# 3 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 2
 
 
 
 
-int main(int argc, char** argv) {
-    Scene wonderland = Scene();
-    wonderland.build();
-    wonderland.render_scene();
-    wonderland.save_bmp("output.bmp");
 
-    return 0;
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\sphere.h" 1
+
+
+
+
+
+
+class Sphere : public Object {
+    public:
+        double radius;
+        point3 center;
+
+        Color col;
+    public:
+        Sphere(void);
+        Sphere( const point3& cen, double rad, const Color& c);
+
+        double getRadius() const;
+        point3 getCenter() const;
+
+        void setRadius(const double rad);
+        void setCenter(const point3& cen);
+        void setCenter(const double x, const double y, const double z);
+
+
+        virtual bool intersect(const ray& r, double t_min, double t_max, recent_hits& record) const override;
+
+        virtual bool bounding_box(AABB& bounder) const override;
+
+
+};
+
+inline double Sphere::getRadius() const {return radius;}
+inline point3 Sphere::getCenter() const {return center;}
+
+inline void Sphere::setRadius(double rad){
+    radius = rad;
+}
+inline void Sphere::setCenter(const point3& cen){
+    center = cen;
+}
+inline void Sphere::setCenter(const double x, const double y, const double z){
+    center = point3(x,y,z);
+}
+# 9 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 2
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\plane.h" 1
+
+
+
+
+
+class Plane : public Object {
+    public:
+        vec3 norm;
+        point3 aPoint;
+        Color col;
+    public:
+        Plane();
+        Plane(const vec3& normal, const point3& p, const Color& c);
+
+        vec3 getNormal() const;
+        vec3 getPoint() const;
+
+        void setNormal(const vec3& normal);
+        void setPoint(const point3& p);
+        void setPoint(const double x, const double y, const double z);
+
+
+
+        bool intersect(const ray& r, double t_min, double t_max, recent_hits& record) const override;
+
+};
+
+inline vec3 Plane::getNormal() const {return norm;}
+inline vec3 Plane::getPoint() const {return aPoint;}
+
+inline void Plane::setNormal(const vec3& normal){
+    norm = normal;
+}
+inline void Plane::setPoint(const point3& p){
+    aPoint = p;
+}
+inline void Plane::setPoint(const double x, const double y, const double z){
+    aPoint = point3(x,y,z);
+}
+# 10 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 2
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\triangle.h" 1
+
+
+
+
+
+class Triangle : public Object{
+    public:
+        point3 poi1, poi2, poi3;
+        vec3 normal;
+        Color col;
+
+    public:
+        Triangle();
+        Triangle(const point3& vert1, const point3& vert2, const point3& vert3, const Color& c);
+
+        void setPoint1(const point3& poi);
+        void setPoint2(const point3& poi);
+        void setPoint3(const point3& poi);
+
+        void makeNormal(void);
+
+
+
+        bool intersect(const ray& r, double t_min, double t_max, recent_hits& record) const override;
+
+};
+
+inline void Triangle::setPoint1(const point3& poi){
+    poi1 = poi;
+}
+inline void Triangle::setPoint2(const point3& poi){
+    poi2 = poi;
+}
+inline void Triangle::setPoint3(const point3& poi){
+    poi3 = poi;
+}
+# 11 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 2
+
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\raycast.h" 1
+
+
+
+
+
+class RayCast: public Tracer {
+ public:
+
+  RayCast(void);
+
+  RayCast(Scene* sceneRef);
+
+
+  virtual Color trace_ray(const ray ra, const int depth) const;
+};
+# 15 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 2
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\pinhole.h" 1
+
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\vec2.h" 1
+
+
+
+
+class vec2 {
+ public:
+
+  double x, y;
+
+ public:
+
+  vec2(void):
+            x(0.0),
+            y(0.0)
+        {}
+
+  vec2(const double arg):
+            x(arg),
+            y(arg)
+        {}
+
+  vec2(const double x1, const double y1):
+            x(x1),
+            y(y1)
+        {}
+
+  vec2(const vec2& p):
+            x(p.x),
+            y(p.y)
+        {}
+
+  vec2& operator= (const vec2& rhs);
+
+  vec2 operator* (const double a);
+};
+
+
+
+
+inline vec2 vec2::operator* (const double a) {
+ return (vec2(x * a, y * a));
+}
+
+vec2& vec2::operator= (const vec2& rhs) {
+ if (this == &rhs)
+  return (*this);
+
+ x = rhs.x;
+ y = rhs.y;
+
+ return (*this);
+}
+# 5 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\pinhole.h" 2
+
+
+
+
+class Pinhole: public Camera {
+ public:
+
+  Pinhole();
+
+  Pinhole(const Pinhole& ph);
+
+  virtual Camera* clone(void) const;
+
+  Pinhole& operator= (const Pinhole& rhs);
+
+  void set_view_distance(const double vpd);
+
+  void set_zoom(const double zoom_factor);
+
+  vec3 get_direction(const vec2& p) const;
+
+  virtual void render_scene(const Scene& sceneRef);
+
+ private:
+
+  double dist;
+  double zoom;
+
+};
+
+
+
+
+
+
+inline void Pinhole::set_view_distance(double _d) {
+ dist = _d;
+}
+
+
+
+
+
+inline void Pinhole::set_zoom(double zoom_factor) {
+ zoom = zoom_factor;
+}
+# 18 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 2
+
+
+
+
+
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\matte.h" 1
+
+
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\material.h" 1
+# 11 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\material.h"
+class Material {
+ public:
+
+  Material(void);
+
+  Material(const Material& material);
+
+  virtual Material* clone(void) const = 0;
+
+  virtual Color shade(recent_hits& sr);
+
+ public:
+
+  Material& operator= (const Material& rhs);
+};
+# 6 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\matte.h" 2
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\lambertian.h" 1
+
+
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\brdf.h" 1
+
+
+
+
+
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Color.h" 1
+# 9 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\brdf.h" 2
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Sampler.h" 1
+# 12 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Sampler.h"
+# 1 "C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/math.h" 1 3
+# 13 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Sampler.h" 2
+
+using std::vector;
+
+
+
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Maths.h" 1
+# 14 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Maths.h"
+# 1 "C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/stdlib.h" 1 3
+# 15 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Maths.h" 2
+
+
+
+
+
+
+
+double min(double x0, double x1);
+
+double max(double x0, double x1);
+
+int rand_int(void);
+
+float rand_float(void);
+
+void set_rand_seed(const int seed);
+
+float rand_float(int l, float h);
+
+int rand_int(int l, int h);
+
+double clamp(const double x, const double min, const double max);
+
+int SolveQuadric(double c[3], double s[2]);
+
+int SolveCubic(double c[4], double s[3]);
+
+int SolveQuartic(double c[5], double s[4]);
+
+
+
+
+
+
+
+inline double min(double x0, double x1) {
+ return ((x0 < x1) ? x0 : x1);
+}
+
+
+
+
+inline double max(double x0, double x1) {
+ return ((x0 > x1) ? x0 : x1);
+}
+
+
+
+
+
+inline int rand_int(void) {
+ return(rand());
+}
+
+
+
+
+inline float rand_float(void) {
+ return((float)rand_int() * invRAND_MAX);
+}
+
+
+
+
+inline void set_rand_seed(const int seed) {
+ srand(seed);
+}
+# 90 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Maths.h"
+inline float rand_float(int l, float h) {
+ return (rand_float() * (h - l) + l);
+}
+
+
+
+inline int rand_int(int l, int h) {
+ return ((int) (rand_float(0, h - l + 1) + l));
+}
+
+
+
+
+inline double clamp(const double x, const double min, const double max) {
+ return (x < min ? min : (x > max ? max : x));
+}
+# 19 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\Sampler.h" 2
+
+class Sampler {
+ public:
+
+  Sampler(void);
+
+  Sampler(const int num);
+
+  Sampler(const int num, const int num_sets);
+
+  Sampler(const Sampler& s);
+
+  Sampler& operator= (const Sampler& rhs);
+
+  virtual Sampler* clone(void) const = 0;
+
+  void set_num_sets(const int np);
+
+  virtual void generate_samples(void) = 0;
+
+  int get_num_samples(void);
+
+  void shuffle_x_coordinates(void);
+
+  void shuffle_y_coordinates(void);
+
+  void setup_shuffled_indices(void);
+
+  void map_samples_to_unit_disk(void);
+
+  void map_samples_to_hemisphere(const float p);
+
+  void map_samples_to_sphere(void);
+
+
+
+
+  vec2 sample_unit_square(void);
+
+
+
+  vec2 sample_unit_disk(void);
+
+  vec3 sample_hemisphere(void);
+
+
+  vec3 sample_sphere(void);
+
+
+ public:
+
+  int num_samples;
+  int num_sets;
+  vector<vec2> samples;
+  vector<int> shuffled_indices;
+  vector<vec2> disk_samples;
+  vector<vec3> hemisphere_samples;
+  vector<vec3> sphere_samples;
+  unsigned long count;
+  int jump;
+};
+# 12 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\brdf.h" 2
+
+class BRDF {
+ public:
+
+  BRDF(void);
+
+  BRDF(const BRDF& brdf);
+
+  virtual BRDF* clone(void)const = 0;
+
+  BRDF& operator= (const BRDF& rhs);
+
+
+  void
+  set_sampler(Sampler* sPtr);
+
+  virtual Color f(const recent_hits& record, const vec3& wo, const vec3& wi) const;
+
+  virtual Color sample_f(const recent_hits& record, const vec3& wo, vec3& wi) const;
+
+  virtual Color sample_f(const recent_hits& record, const vec3& wo, vec3& wi, float& pdf) const;
+
+  virtual Color rho(const recent_hits& record, const vec3& wo) const;
+
+
+ public:
+
+  Sampler* sampler_ptr;
+};
+# 6 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\lambertian.h" 2
+
+class Lambertian: public BRDF
+{
+ public:
+
+  Lambertian(void);
+
+  Lambertian(const Lambertian& lamb);
+
+  Lambertian& operator= (const Lambertian& rhs);
+
+  virtual Lambertian* clone(void) const;
+
+  virtual Color f(const recent_hits& sr, const vec3& wo, const vec3& wi) const;
+
+  virtual Color sample_f(const recent_hits& sr, const vec3& wo, vec3& wi, double& pdf) const;
+
+  virtual Color rho(const recent_hits& sr, const vec3& wo) const;
+
+  void set_ka(const float ka);
+
+  void set_kd(const float kd);
+
+  void set_cd(const Color& c);
+
+  void set_cd(const float r, const float g, const float b);
+
+  void set_cd(const float c);
+
+ public:
+
+  double kd;
+  Color cd;
+};
+
+
+
+
+
+
+inline void Lambertian::set_ka(const float k) {
+ kd = k;
+}
+
+
+
+
+
+inline void Lambertian::set_kd(const float k) {
+ kd = k;
+}
+
+
+
+
+inline void Lambertian::set_cd(const Color& c) {
+ cd = c;
+}
+
+
+
+
+inline void Lambertian::set_cd(const float r, const float g, const float b) {
+ cd.red = r; cd.green = g; cd.blue = b;
+}
+
+
+
+
+inline void Lambertian::set_cd(const float c) {
+ cd.red = c; cd.green = c; cd.blue = c;
+}
+# 7 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\matte.h" 2
+
+
+
+class Matte: public Material {
+ public:
+
+  Matte(void);
+
+  Matte(const Matte& m);
+
+  virtual Material* clone(void) const;
+
+  Matte& operator= (const Matte& rhs);
+
+  void set_ka(const float k);
+
+  void set_kd(const float k);
+
+  void set_cd(const Color c);
+
+  void set_cd(const float r, const float g, const float b);
+
+  void set_cd(const float c);
+
+  virtual Color shade(recent_hits& sr);
+
+ private:
+
+  Lambertian* ambient_brdf;
+  Lambertian* diffuse_brdf;
+};
+
+
+
+
+
+
+
+inline void Matte::set_ka(const float ka) {
+ ambient_brdf->set_kd(ka);
+}
+
+
+
+
+
+inline void Matte::set_kd (const float kd) {
+ diffuse_brdf->set_kd(kd);
+}
+
+
+
+
+inline void Matte::set_cd(const Color c) {
+ ambient_brdf->set_cd(c);
+ diffuse_brdf->set_cd(c);
+}
+
+
+
+
+inline void Matte::set_cd(const float r, const float g, const float b) {
+ ambient_brdf->set_cd(r, g, b);
+ diffuse_brdf->set_cd(r, g, b);
+}
+
+
+
+inline void Matte::set_cd(const float c) {
+ ambient_brdf->set_cd(c);
+ diffuse_brdf->set_cd(c);
+}
+# 26 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 2
+# 38 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp"
+# 1 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\buildSnowman.cpp" 1
+
+void Scene::build(void){
+    int num_samples = 1;
+
+
+
+    vp.set_hres(500);
+    vp.set_vres(500);
+    vp.set_pixel_size(1);
+    vp.set_samples(num_samples);
+
+    Ambient* ambient_ptr = new Ambient;
+    ambient_ptr->scale_radiance(1.0);
+    set_ambient_light(ambient_ptr);
+    background_color = solidblue;
+    tracer_ptr = new RayCast(this);
+
+
+
+    Pinhole* pinhole_ptr = new Pinhole;
+    pinhole_ptr->set_eye(0,0,100);
+    pinhole_ptr->set_look(0,0,0);
+    pinhole_ptr->set_view_distance(500);
+    pinhole_ptr->uvwbase();
+    set_camera(pinhole_ptr);
+
+
+
+    Ambient* light_ptr1 = new Ambient;
+    add_light(light_ptr1);
+
+
+
+    double ka = 0.25;
+    double kd = 0.75;
+
+
+
+    Matte* matte_green = new Matte;
+    matte_green->set_ka(ka);
+    matte_green->set_kd(kd);
+    matte_green->set_cd(solidgreen);
+
+    Matte* matte_blue = new Matte;
+    matte_blue->set_ka(ka);
+    matte_blue->set_kd(kd);
+    matte_blue->set_cd(solidblue);
+
+    Matte* matte_red = new Matte;
+    matte_red->set_ka(ka);
+    matte_red->set_kd(kd);
+    matte_red->set_cd(solidred);
+
+    Matte* matte_crimson = new Matte;
+    matte_crimson->set_ka(ka);
+    matte_crimson->set_kd(kd);
+    matte_crimson->set_cd(crimson);
+
+
+    Plane* land = new Plane(vec3(0,-250,-1), point3(0,-100,-1), Color(0.0 ,1.0 ,0.0));
+    Sphere* head = new Sphere(point3(0,.75,-1), 0.35, Color(0.0 ,0.0 ,1.0));
+    Sphere* middle = new Sphere(point3(0,0,-1), .5, Color(1.0 ,0.0 ,0.0));
+    Sphere* butt = new Sphere(point3(0,-.6,-1), 0.65, Color(0.0 ,1.0 ,0.0));
+    Triangle* nose1 = new Triangle(point3(0,.75,-.5),point3(.2,.75,-1), point3(0,.9,-1), Color(0.5, 0.25, 0.25));
+    Triangle* nose2 = new Triangle(point3(0,.75,-.5),point3(-.2,.75,-1), point3(0,.9,-1), Color(0.5, 0.25, 0.25));
+
+    land->set_material(matte_green);
+    head->set_material(matte_blue);
+    middle->set_material(matte_red);
+    butt->set_material(matte_blue);
+    nose1->set_material(matte_crimson);
+    nose2->set_material(matte_crimson);
+
+    add_object(land);
+    add_object(head);
+    add_object(middle);
+    add_object(butt);
+    add_object(nose1);
+    add_object(nose2);
+
+
+}
+# 39 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 2
+
+
+
+
+Scene::Scene(void)
+ : background_color(black),
+  tracer_ptr(
+# 45 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 3 4
+            __null
+# 45 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp"
+                ),
+  ambient_ptr(new Ambient),
+  camera_ptr(
+# 47 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp" 3 4
+            __null
+# 47 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp"
+                )
+{}
+# 58 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp"
+void Scene::render_scene(void) const {
+
+ Color pixel_color;
+ ray ra;
+ int hres = vp.hres;
+ int vres = vp.vres;
+ float s = vp.s;
+ float zw = 100.0;
+
+ ra.dir = vec3(0, 0, -1);
+ std::cout << "P3\n" << vres << " " << hres << "\n255\n";
+ for (int r = 0; r < vres; r++){
+  std::cerr << "\rRendering: " << r << ' ' << std::flush;
+  for (int c = 0; c < hres; c++) {
+   ra.orig = point3(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
+   pixel_color = tracer_ptr->trace_ray(ra);
+
+   display_pixel(r, c, pixel_color);
+  }
+ }
+ std::cerr << "\nDone.\n";
+}
+# 95 "C:\\Users\\Duncan\\Desktop\\Tracer\\CS419RayTracer\\scene.cpp"
+void Scene::display_pixel(const int row, const int column, const Color& raw_color) const {
+ Color mapped_color;
+
+
+   int index = (column * vp.vres) + row;
+
+ mapped_color.red = std::fmin(raw_color.red,1);
+ mapped_color.green = std::fmin(raw_color.green,1);
+ mapped_color.blue = std::fmin(raw_color.blue,1);
+
+}
+
+void Scene::save_bmp(const std::string& outputFile) const{
+ const int image_size = vp.hres * vp.vres * 4;
+    const int headers_size = 14 + 40;
+    const int filesize = image_size + headers_size;
+    const int pixelsPerMeter = 2835;
+
+    unsigned char bmpfileheader[14] = {'B','M', 0,0,0,0, 0,0,0,0, 54,0,0,0};
+
+    bmpfileheader[ 2] = (unsigned char)(filesize);
+    bmpfileheader[ 3] = (unsigned char)(filesize>>8);
+    bmpfileheader[ 4] = (unsigned char)(filesize>>16);
+    bmpfileheader[ 5] = (unsigned char)(filesize>>24);
+
+    unsigned char bmpinfoheader[40] = {40,0,0,0, 0,0,0,0, 0,0,0,0, 1,0,24,0};
+
+    bmpinfoheader[ 4] = (unsigned char)(vp.vres);
+    bmpinfoheader[ 5] = (unsigned char)(vp.vres>>8);
+    bmpinfoheader[ 6] = (unsigned char)(vp.vres>>16);
+    bmpinfoheader[ 7] = (unsigned char)(vp.vres>>24);
+
+
+    bmpinfoheader[ 8] = (unsigned char)(vp.hres);
+    bmpinfoheader[ 9] = (unsigned char)(vp.hres>>8);
+    bmpinfoheader[10] = (unsigned char)(vp.hres>>16);
+    bmpinfoheader[11] = (unsigned char)(vp.hres>>24);
+
+
+    bmpinfoheader[21] = (unsigned char)(image_size);
+    bmpinfoheader[22] = (unsigned char)(image_size>>8);
+    bmpinfoheader[23] = (unsigned char)(image_size>>16);
+    bmpinfoheader[24] = (unsigned char)(image_size>>24);
+
+    bmpinfoheader[25] = (unsigned char)(pixelsPerMeter);
+    bmpinfoheader[26] = (unsigned char)(pixelsPerMeter>>8);
+    bmpinfoheader[27] = (unsigned char)(pixelsPerMeter>>16);
+    bmpinfoheader[28] = (unsigned char)(pixelsPerMeter>>24);
+
+    bmpinfoheader[29] = (unsigned char)(pixelsPerMeter);
+    bmpinfoheader[30] = (unsigned char)(pixelsPerMeter>>8);
+    bmpinfoheader[31] = (unsigned char)(pixelsPerMeter>>16);
+    bmpinfoheader[32] = (unsigned char)(pixelsPerMeter>>24);
+
+    FILE *file = fopen(outputFile.c_str(), "wb");
+
+    fwrite(bmpfileheader,1,14, file);
+    fwrite(bmpinfoheader,1,40, file);
+
+    for (int i = 0; i < pixels.size(); ++i){
+        const Color pixel = pixels[i];
+        unsigned char color[3] = {
+            (int) (pixel.blue * 255),
+            (int) (pixel.green * 255),
+            (int) (pixel.red * 255)
+        };
+        fwrite(color, 1, 3, file);
+    }
+    fclose(file);
+
+}
+
+
+
+recent_hits Scene::intersect(const ray& ra) {
+ recent_hits records(*this);
+ double t_min;
+ double t_max = kHugeValue;
+ int num_objects = objects.size();
+
+ for (int j = 0; j < num_objects; j++){
+  if (objects[j]->intersect(ra, t_min, t_max, records)) {
+   records.colided = true;
+   t_max = t_min;
+   records.col = objects[j]->get_color();
+  }
+ }
+ return (records);
 }

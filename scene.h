@@ -27,6 +27,7 @@ class Scene {
 		Camera*						camera_ptr;
 		vector<Object*>				objects;		
 		vector<Light*>				lights;
+		vector<Color>				pixels;
 			
 
 	public:
@@ -39,13 +40,15 @@ class Scene {
 
 		void set_ambient_light(Light* light_ptr);
 
-		void set_camer(Camera* cam_ptr);
+		void set_camera(Camera* cam_ptr);
 		
 		void build(void);
 
 		void render_scene(void) const;
 		
 		void display_pixel(const int row, const int column, const Color& pixel_color) const;
+
+		void save_bmp(const std::string& outputFile) const;
 
 		recent_hits intersect(const ray& ra);
 						
@@ -72,7 +75,7 @@ inline void Scene::set_ambient_light(Light* light_ptr){
 }
 
 inline void Scene::set_camera(Camera* cam_ptr){
-	camera_ptr = cam_ptr
+	camera_ptr = cam_ptr;
 }
 
 #endif
