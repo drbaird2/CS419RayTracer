@@ -81,21 +81,19 @@ Material* Object::get_material(void) const {
 
 // ----------------------------------------------------------------------- compute_normal
 
-vec3 GeometricObject::get_normal(const point3& p) {
+vec3 Object::get_normal(const point3& p) {
 	return (vec3(0,0,0));
 }  
 
 
 // ----------------------------------------------------------------------- set_bounding_box
 /*
-void 
-GeometricObject::set_bounding_box (void) {}
+void Object::set_bounding_box (void) {}
 
 
 // ----------------------------------------------------------------------- set_bounding_box
 
-BBox 
-GeometricObject::get_bounding_box (void) {
+BBox Object::get_bounding_box (void) {
 	return BBox();
 }
 

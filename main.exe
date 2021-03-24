@@ -34576,7 +34576,7 @@ class Object{
 
         Object(const Object& object);
 
-        virtual Object* clone() const = 0;
+
 
         virtual bool intersect(const ray& r, double t_min, double t_max, recent_hits& record) const = 0;
 
@@ -34587,6 +34587,8 @@ class Object{
         void set_color(const Color& c);
 
         void set_color(const double r, const double g, const double b);
+
+        Color get_color();
 
         virtual void add_object(Object* object_ptr);
 
@@ -34663,14 +34665,14 @@ inline void Camera::set_eye(const point3& p){
 }
 
 inline void Camera::set_eye(const double x, const double y, const double z){
-    eye. = point3(x,y,z);
+    eye = point3(x,y,z);
 }
 
-inline void Camera::set_look(point3& p){
-    lookAt = p
+inline void Camera::set_look(const point3& at){
+    lookAt = at;
 }
 
-inline void Camera::set_look(const double x, const doubley, const double z){
+inline void Camera::set_look(const double x, const double y, const double z){
     lookAt = point3(x,y,z);
 }
 

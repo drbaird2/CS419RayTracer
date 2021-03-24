@@ -32,13 +32,6 @@ bool Sphere::intersect(const ray& r, double t_min, double t_max, recent_hits& re
     }
     //one of them was closer, update the record
     record.t = root;
-    record.origin = r.at(record.t);
-    vec3 outward_normal = (record.origin - center)/radius;
-    record.set_face_normal(r, outward_normal);
+    record.colidePoint = r.at(record.t);
     return true;                
-}
-
-bool Sphere::bounding_box(AABB& bounder) const {
-    bounder = AABB( center - vec3(radius, radius, radius), center + vec3(radius, radius, radius));
-    return true;
 }

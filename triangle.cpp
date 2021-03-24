@@ -53,9 +53,7 @@ bool Triangle::intersect(const ray& r, double t_min, double t_max, recent_hits& 
             //if t is outside the range it is not the closest;
         }
         record.t = t;
-        record.origin = r.at(record.t);
-        vec3 outward_normal = unit_vector(cross(edge1, edge2));
-        record.set_face_normal(r, outward_normal); 
+        record.colidePoint = r.at(record.t);
         return true;
     }else{
         return false;

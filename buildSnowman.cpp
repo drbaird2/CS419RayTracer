@@ -1,4 +1,5 @@
 
+/*
 void Scene::build(void){
     int num_samples = 1;
 
@@ -21,7 +22,7 @@ void Scene::build(void){
     pinhole_ptr->set_eye(0,0,100);
     pinhole_ptr->set_look(0,0,0);
     pinhole_ptr->set_view_distance(500);
-    pinhole_ptr->uvwbase();
+    pinhole_ptr->uvwBase();
     set_camera(pinhole_ptr);
 
     //light
@@ -79,4 +80,4 @@ void Scene::build(void){
     add_object(nose2);
 
 
-}
+}*/

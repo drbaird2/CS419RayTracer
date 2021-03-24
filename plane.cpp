@@ -26,9 +26,7 @@ bool Plane::intersect(const ray& r, double t_min, double t_max, recent_hits& rec
         }else{
         //The t is closer than the max but still visible, update record.
             record.t = t;
-            record.origin = r.at(record.t);
-            vec3 outward_normal = norm;
-            record.set_face_normal(r, outward_normal);
+            record.colidePoint = r.at(record.t);
             return true;
         }
         return false;

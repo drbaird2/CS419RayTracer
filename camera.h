@@ -41,14 +41,14 @@ inline void Camera::set_eye(const point3& p){
 }
 
 inline void Camera::set_eye(const double x, const double y, const double z){
-    eye. = point3(x,y,z);
+    eye = point3(x,y,z);
 }
 
-inline void Camera::set_look(point3& p){
-    lookAt = p
+inline void Camera::set_look(const point3& at){
+    lookAt = at;
 }
 
-inline void Camera::set_look(const double x, const doubley, const double z){
+inline void Camera::set_look(const double x, const double y, const double z){
     lookAt = point3(x,y,z);
 }
 

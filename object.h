@@ -21,7 +21,7 @@ class Object{
 
         Object(const Object& object);
 
-        virtual Object* clone() const = 0;
+        //virtual Object* clone() const = 0;
 
         virtual bool intersect(const ray& r, double t_min, double t_max, recent_hits& record) const = 0;
         
