@@ -32,10 +32,8 @@
 
 // build functions
 
-//#include "BuildSingleSphere.cpp"
-//#include "BuildMultipleObjects.cpp"
-//#include "BuildBBCoverPic.cpp"
-#include "buildSnowman.cpp"
+
+//#include "buildSnowman.cpp"
 
 
 // -------------------------------------------------------------------- default constructor

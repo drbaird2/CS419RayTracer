@@ -3,6 +3,8 @@
 
 #include "vec3.h"
 
+class Scene;
+
 class Camera {
     public:
         point3 eye, lookAt;

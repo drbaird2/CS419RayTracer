@@ -3,7 +3,7 @@
 #include <string>
 
 
-int main(int argc, char** argv) {
+int main() {
     Scene wonderland = Scene();
     wonderland.build();
     wonderland.render_scene();
