@@ -38,15 +38,17 @@ class Scene {
 
 		void add_light(Light* light_ptr);
 
+		void add_pixel(Color col);
+
 		void set_ambient_light(Light* light_ptr);
 
 		void set_camera(Camera* cam_ptr);
 		
 		void build(void);
 
-		void render_scene(void) const;
+		void render_scene(void) ;
 		
-		void display_pixel(const int row, const int column, const Color& pixel_color) const;
+		void display_pixel(const int row, const int column, const Color& pixel_color);
 
 		void save_bmp(const std::string& outputFile) const;
 
@@ -69,6 +71,10 @@ inline void Scene::add_object(Object* object_ptr) {
 inline void Scene::add_light(Light* light_ptr) {  
 	lights.push_back(light_ptr);	
 }
+
+/* inline void Scene::add_pixel(Color col){
+	pixels.push_back(col);
+} */
 
 inline void Scene::set_ambient_light(Light* light_ptr){
 	ambient_ptr = light_ptr;

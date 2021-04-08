@@ -18,7 +18,7 @@ class Camera {
 
         virtual Camera* clone(void) const = 0;
 
-        virtual void render_scene(const Scene& scene_ref) = 0;
+        virtual void render_scene( Scene& scene_ref) = 0;
 
         void set_eye(const point3& p);
 

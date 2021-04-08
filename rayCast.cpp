@@ -22,7 +22,7 @@ RayCast::RayCast(Scene* sceneRef)
 // -------------------------------------------------------------------- trace_ray
 // this ignores the depth argument
 
-Color RayCast::trace_ray(const ray ra) const {
+Color RayCast::trace_ray(const ray& ra) const {
 	recent_hits record(scene_ptr->intersect(ra));
 		
 	if (record.colided) {

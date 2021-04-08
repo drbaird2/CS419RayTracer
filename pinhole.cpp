@@ -58,7 +58,7 @@ vec3 Pinhole::get_direction(const vec2& p) const {
 
 // ----------------------------------------------------------------------------- render_scene
 
-void Pinhole::render_scene(const Scene& sceneRef) {
+void Pinhole::render_scene(Scene& sceneRef) {
 	Color	    L;
 	ViewPlane	vp(sceneRef.vp);	 								
 	ray			ra;

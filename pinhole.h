@@ -23,7 +23,7 @@ class Pinhole: public Camera {
 		
 		vec3 get_direction(const vec2& p) const;
 		
-		virtual void render_scene(const Scene& sceneRef);
+		virtual void render_scene( Scene& sceneRef);
 		
 	private:
 			

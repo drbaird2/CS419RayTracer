@@ -53,7 +53,7 @@ Scene::Scene(void)
 
 // This uses orthographic viewing along the zw axis
 
-void Scene::render_scene(void) const {
+void Scene::render_scene(void) {
 
 	Color	    pixel_color;	 	
 	ray			ra;					
@@ -90,15 +90,18 @@ void Scene::render_scene(void) const {
 // the function SetCPixel is a Mac OS function
 
 
-void Scene::display_pixel(const int row, const int column, const Color& raw_color) const {
+void Scene::display_pixel(const int row, const int column, const Color& raw_color) {
 	Color mapped_color;
 	
    //have to start from max y coordinate to convert to screen coordinates
    int index = (column * vp.vres) + row;
 
+
 	mapped_color.red = std::fmin(raw_color.red,1);
 	mapped_color.green = std::fmin(raw_color.green,1);
 	mapped_color.blue = std::fmin(raw_color.blue,1);
+
+    pixels.push_back(mapped_color);
 
 }
 
@@ -252,11 +255,11 @@ void Scene::build(void){
     nose1->set_material(matte_crimson);
     nose2->set_material(matte_crimson);
 
-    add_object(land);
-    //add_object(head);
+    //add_object(land);
+    add_object(head);
     add_object(middle);
-    //add_object(butt);
-    //add_object(nose1);
+    add_object(butt);
+    add_object(nose1);
     //add_object(nose2);
 
 
