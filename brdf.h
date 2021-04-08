@@ -2,7 +2,7 @@
 #define BRDF_H
 
 
-#include "Color.h"
+#include "color.h"
 #include "vec3.h"
 #include "recent_hits.h"
 #include "Sampler.h"

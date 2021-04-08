@@ -27,7 +27,7 @@ class Color{
         void setBlue(double b);
 
     //Makes sure that the color is a valid color so no values go over 1 or under 0
-        Color validateColor();
+        void validateColor();
 
 		Color operator+ (const Color& c) const;	
 
@@ -79,6 +79,8 @@ inline void Color::setBlue(double b){
 }
 
 //Series of operator overrides
+
+
 inline Color Color::operator+(const Color& c) const {
     return Color(red + c.red, green + c.green, blue + c.blue);
 }
@@ -112,6 +114,11 @@ inline Color& Color::operator/= (const float scalar) {
 
 inline bool Color::operator== (const Color& c) const {
 	return (red == c.red && green == c.green && blue == c.blue);
+}
+
+inline Color& Color::operator=(const Color& rhs) {
+    red = rhs.red; green = rhs.green; blue = rhs.blue;
+    return (*this);
 }
 
 #endif

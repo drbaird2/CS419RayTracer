@@ -7,7 +7,7 @@ class Scene;
 
 
 #include "ray.h"
-#include "object.h"
+//#include "object.h"
 
 class recent_hits {
     public:

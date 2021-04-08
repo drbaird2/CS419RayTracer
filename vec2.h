@@ -29,18 +29,18 @@ class vec2 {
             y(p.y)
         {}								
 
-		vec2& operator= (const vec2& rhs);
+		//vec2& operator= (const vec2& rhs);
 		
 		vec2 operator* (const double a);
 };
 
 
-// multiplication by a float on the right
+// multiplication by a double on the right
 
 inline vec2 vec2::operator* (const double a) {
 	return (vec2(x * a, y * a));
 }
-
+/*
 vec2& vec2::operator= (const vec2& rhs) {
 	if (this == &rhs)
 		return (*this);
@@ -49,7 +49,7 @@ vec2& vec2::operator= (const vec2& rhs) {
 	y = rhs.y;
 
 	return (*this);
-}
+}*/
 #endif
 
 

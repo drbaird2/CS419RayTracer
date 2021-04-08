@@ -27,7 +27,7 @@ class Ambient: public Light {
 		
 		virtual Color L(recent_hits& s);
 	
-	private:
+	public:
 	
 		double		ls;
 		Color	    color;

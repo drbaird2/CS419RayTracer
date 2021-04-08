@@ -11,7 +11,7 @@ class RayCast: public Tracer {
 		RayCast(Scene* sceneRef);
 					
 
-		virtual Color trace_ray(const ray ra, const int depth) const;
+		virtual Color trace_ray(const ray ra) const;
 };
 
 #endif

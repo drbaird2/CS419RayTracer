@@ -20,14 +20,14 @@ Color::Color(const vec3& colour) :
     
 
     //Makes sure that the color is a valid color so no values go over 1 or under 0
-Color Color::validateColor(){
+void Color::validateColor(){
     if (red > 1) {red = 1;}
     if (red < 0) {red = 0;}
 	if (green > 1) {green = 1;}
     if (green < 0) {green = 0;}
 	if (blue > 1) {blue = 1;}
 	if (blue < 0) {blue = 0;}
-    return Color(red,green,blue);
+    //return Color(red,green,blue);
 }
 
 
@@ -35,7 +35,8 @@ Color Color::validateColor(){
 //Writes the current color out to the ppm file
 void Color::write_color(std::ostream &out, Color pixel_color) {
     // Write the translated [0,255] value of each color component.
-    pixel_color = pixel_color.validateColor();
+    //pixel_color = pixel_color.validateColor();
+    pixel_color.validateColor();
     out << static_cast<int>(255.999 * pixel_color.getRed()) << ' '
     << static_cast<int>(255.999 * pixel_color.getGreen()) << ' '
     << static_cast<int>(255.999 * pixel_color.getBlue()) << '\n';

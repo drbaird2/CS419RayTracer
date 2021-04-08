@@ -1,7 +1,7 @@
 
 #include "scene.h"
 #include "constants.h"
-#include "color.h"
+//#include "color.h"
 
 // geometric objects
 
@@ -19,7 +19,7 @@
 //lights
 //#include "directional.h"
 //#include "pointlight.h"
-#include "ambient.h"
+//#include "ambient.h"
 
 //materials
 #include "matte.h"
@@ -63,7 +63,7 @@ void Scene::render_scene(void) const {
 	float		zw		= 100.0;			// hardwired in
 
 	ra.dir = vec3(0, 0, -1);
-	std::cout << "P3\n" << vres << " " << hres << "\n255\n";
+	//std::cout << "P6\n" << vres << " " << hres << "\n255\n";
 	for (int r = 0; r < vres; r++){			// up
 		std::cerr << "\rRendering: " << r << ' ' << std::flush;
 		for (int c = 0; c < hres; c++) {	// across 					
@@ -152,9 +152,9 @@ void Scene::save_bmp(const std::string& outputFile) const{
     for (int i = 0; i < pixels.size(); ++i){
         const Color pixel = pixels[i];
         unsigned char color[3] = {
-            (int) (pixel.blue * 255), 
-            (int) (pixel.green * 255), 
-            (int) (pixel.red * 255)
+            static_cast<unsigned char> (pixel.blue * 255), 
+            static_cast<unsigned char> (pixel.green * 255), 
+            static_cast<unsigned char> (pixel.red * 255)
         };
         fwrite(color, 1, 3, file);
     }
@@ -253,11 +253,11 @@ void Scene::build(void){
     nose2->set_material(matte_crimson);
 
     add_object(land);
-    add_object(head);
+    //add_object(head);
     add_object(middle);
-    add_object(butt);
-    add_object(nose1);
-    add_object(nose2);
+    //add_object(butt);
+    //add_object(nose1);
+    //add_object(nose2);
 
 
 }
