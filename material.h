@@ -7,6 +7,9 @@
 #include "scene.h"			// required for the shade function in all derived classes
 #include "color.h"
 #include "recent_hits.h"
+#include <memory>
+
+using namespace std;
 
 class Material {	
 	public:
@@ -15,7 +18,7 @@ class Material {
 		
 		Material(const Material& material); 
 
-		virtual Material* clone(void) const = 0;
+		virtual shared_ptr<Material> clone(void) const = 0;
 				
 		virtual Color shade(recent_hits& sr);	
 		

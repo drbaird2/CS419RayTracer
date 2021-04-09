@@ -14,7 +14,7 @@ class Matte: public Material {
 
 		Matte(const Matte& m);
 		
-		virtual Material* clone(void) const;									
+		virtual shared_ptr<Material> clone(void) const;									
 
 		Matte& operator= (const Matte& rhs);																	
 		

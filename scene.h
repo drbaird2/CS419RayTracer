@@ -13,6 +13,7 @@
 #include "camera.h"
 #include "light.h"
 #include "ambient.h"
+#include <memory>
 
 using namespace std;
 
@@ -22,11 +23,11 @@ class Scene {
 	
 		ViewPlane					vp;
 		Color					    background_color;
-		Tracer*						tracer_ptr;
-		Light*						ambient_ptr;
-		Camera*						camera_ptr;
-		vector<Object*>				objects;		
-		vector<Light*>				lights;
+		shared_ptr<Tracer>			tracer_ptr;
+		shared_ptr<Light>			ambient_ptr;
+		shared_ptr<Camera>			camera_ptr;
+		vector<shared_ptr<Object>>	objects;		
+		vector<shared_ptr<Light>>	lights;
 		vector<Color>				pixels;
 			
 
@@ -34,15 +35,15 @@ class Scene {
 	
 		Scene(void);												
 								
-		void add_object(Object* object_ptr);
+		void add_object(shared_ptr<Object> object_ptr);
 
-		void add_light(Light* light_ptr);
+		void add_light(shared_ptr<Light> light_ptr);
 
-		void add_pixel(Color col);
+		//void add_pixel(Color col);
 
-		void set_ambient_light(Light* light_ptr);
+		void set_ambient_light(shared_ptr<Light> light_ptr);
 
-		void set_camera(Camera* cam_ptr);
+		void set_camera(shared_ptr<Camera> cam_ptr);
 		
 		void build(void);
 
@@ -64,11 +65,11 @@ class Scene {
 
 
 
-inline void Scene::add_object(Object* object_ptr) {  
+inline void Scene::add_object(shared_ptr<Object> object_ptr) {  
 	objects.push_back(object_ptr);	
 }
 
-inline void Scene::add_light(Light* light_ptr) {  
+inline void Scene::add_light(shared_ptr<Light> light_ptr) {  
 	lights.push_back(light_ptr);	
 }
 
@@ -76,11 +77,11 @@ inline void Scene::add_light(Light* light_ptr) {
 	pixels.push_back(col);
 } */
 
-inline void Scene::set_ambient_light(Light* light_ptr){
+inline void Scene::set_ambient_light(shared_ptr<Light> light_ptr){
 	ambient_ptr = light_ptr;
 }
 
-inline void Scene::set_camera(Camera* cam_ptr){
+inline void Scene::set_camera(shared_ptr<Camera> cam_ptr){
 	camera_ptr = cam_ptr;
 }
 

@@ -27,8 +27,8 @@ Matte::Matte(const Matte& m)
 
 // ---------------------------------------------------------------- clone
 
-Material* Matte::clone(void) const {
-	return (new Matte(*this));
+shared_ptr<Material> Matte::clone(void) const {
+	return (make_shared<Matte>(*this));
 }	
 
 

@@ -35,7 +35,7 @@ Object& Object::operator= (const Object& rhs) {
 	col= rhs.col;
 	
 	if (material_ptr) {
-		delete material_ptr;
+		material_ptr.reset();
 		material_ptr = NULL;
 	}
 
@@ -55,7 +55,7 @@ Object& Object::operator= (const Object& rhs) {
 // ---------------------------------------------------------------------- add_object
 // required for Compound objects 
 
-void Object::add_object(Object* object_ptr) {}
+void Object::add_object(shared_ptr<Object> object_ptr) {}
 
 
 // ----------------------------------------------------------------------- get_normal
@@ -67,14 +67,18 @@ vec3 Object::get_normal(void) const{
 
 // ----------------------------------------------------------------------- set_material
 
-void Object::set_material(Material* mPtr) {
+void Object::set_material(shared_ptr<Material> mPtr) {
+	if (material_ptr){
+		material_ptr.reset();
+		material_ptr = NULL;
+	}
 	material_ptr = mPtr;
 }
 
 
 // ----------------------------------------------------------------------- get_material
 
-Material* Object::get_material(void) const {
+shared_ptr<Material> Object::get_material(void) const {
 	return (material_ptr);
 }
 

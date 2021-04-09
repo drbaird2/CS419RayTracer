@@ -6,15 +6,16 @@
 #include "color.h"
 #include "recent_hits.h"
 #include "vec3.h"
-
+#include <memory>
 //#include "aabb.h"
 
 class Material;
 
+using namespace std;
 //base class for all hittiable objects, includes a virtual intersection function
 class Object{
     public:
-        Material* material_ptr;
+        shared_ptr<Material> material_ptr;
         Color col;
     public:
         Object();
@@ -25,9 +26,9 @@ class Object{
 
         virtual bool intersect(const ray& r, double t_min, double t_max, recent_hits& record) const = 0;
         
-        virtual void set_material(Material* materialRef);
+        virtual void set_material(shared_ptr<Material> materialRef);
 
-        Material* get_material() const;
+        shared_ptr<Material> get_material() const;
 
         void set_color(const Color& c);
 
@@ -35,7 +36,7 @@ class Object{
 
         Color get_color();
 
-        virtual void add_object(Object* object_ptr);
+        virtual void add_object(shared_ptr<Object> object_ptr);
         
         //virtual void set_bounding_box();
         //virtual AABB get_bounding_box();

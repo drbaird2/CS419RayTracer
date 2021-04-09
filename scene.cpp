@@ -33,6 +33,7 @@
 // build functions
 
 
+
 //#include "buildSnowman.cpp"
 
 
@@ -41,7 +42,7 @@
 Scene::Scene(void)
 	:  	background_color(black),
 		tracer_ptr(NULL),
-		ambient_ptr(new Ambient),
+		ambient_ptr(make_shared<Ambient>()),
 		camera_ptr(NULL)
 {}
 
@@ -65,8 +66,10 @@ void Scene::render_scene(void) {
 	ra.dir = vec3(0, 0, -1);
 	//std::cout << "P6\n" << vres << " " << hres << "\n255\n";
 	for (int r = 0; r < vres; r++){			// up
-		std::cerr << "\rRendering: " << r << ' ' << std::flush;
-		for (int c = 0; c < hres; c++) {	// across 					
+		std::cerr << "\rRendering: Row " << r << ' ' << std::flush;
+        //if(int r = 249){}
+		for (int c = 0; c < hres; c++) {	// across 
+            //std::cerr << "\rRendering: Col" << c << ' ' << std::flush;					
 			ra.orig = point3(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
 			pixel_color = tracer_ptr->trace_ray(ra);
 			//pixel_color.write_color(std::cout, pixel_color);
@@ -193,24 +196,24 @@ void Scene::build(void){
     vp.set_pixel_size(1);
     vp.set_samples(num_samples);
 
-    Ambient* ambient_ptr = new Ambient;
+    shared_ptr<Ambient> ambient_ptr =  make_shared<Ambient>();
     ambient_ptr->scale_radiance(1.0);
     set_ambient_light(ambient_ptr);
-    background_color = solidblue;
-    tracer_ptr = new RayCast(this);
+    background_color = crimson;
+    tracer_ptr = make_shared<RayCast>(this);
 
     //camera
 
-    Pinhole* pinhole_ptr = new Pinhole;
-    pinhole_ptr->set_eye(0,0,100);
+    shared_ptr<Pinhole> pinhole_ptr = make_shared<Pinhole>();
+    pinhole_ptr->set_eye(0,0,-100);
     pinhole_ptr->set_look(0,0,0);
-    pinhole_ptr->set_view_distance(500);
+    pinhole_ptr->set_view_distance(1000);
     pinhole_ptr->uvwBase();
     set_camera(pinhole_ptr);
 
     //light
 
-    Ambient* light_ptr1 = new Ambient;
+    std::shared_ptr<Ambient> light_ptr1 = std::make_shared<Ambient>();
     add_light(light_ptr1);
 
     //Material
@@ -220,12 +223,12 @@ void Scene::build(void){
 
     //Materials
 
-    Matte* matte_green = new Matte;
+    std::shared_ptr<Matte> matte_green = std::make_shared<Matte>();
     matte_green->set_ka(ka);
     matte_green->set_kd(kd);
     matte_green->set_cd(solidgreen);
 
-    Matte* matte_blue = new Matte;
+    /* Matte* matte_blue = new Matte;
     matte_blue->set_ka(ka);
     matte_blue->set_kd(kd);
     matte_blue->set_cd(solidblue);
@@ -238,28 +241,28 @@ void Scene::build(void){
     Matte* matte_crimson = new Matte;
     matte_crimson->set_ka(ka);
     matte_crimson->set_kd(kd);
-    matte_crimson->set_cd(crimson);
+    matte_crimson->set_cd(crimson); */
 
     //Shapes
-    Plane* land = new Plane(vec3(0,-250,-1), point3(0,-100,-1), Color(0.0 ,1.0 ,0.0));
-    Sphere* head = new Sphere(point3(0,.75,-1), 0.35, Color(0.0 ,0.0 ,1.0));
-    Sphere* middle = new Sphere(point3(0,0,-1), .5, Color(1.0 ,0.0 ,0.0));
-    Sphere* butt = new Sphere(point3(0,-.6,-1), 0.65, Color(0.0 ,1.0 ,0.0));
-    Triangle* nose1 = new Triangle(point3(0,.75,-.5),point3(.2,.75,-1), point3(0,.9,-1), Color(0.5, 0.25, 0.25));
-    Triangle* nose2 = new Triangle(point3(0,.75,-.5),point3(-.2,.75,-1), point3(0,.9,-1), Color(0.5, 0.25, 0.25));
+    //std::shared_ptr<Plane> land = std::make_shared<Plane>(vec3(0,-250,-1), point3(0,-100,-1), Color(0.0 ,1.0 ,0.0));
+    std::shared_ptr<Sphere> head = std::make_shared<Sphere>(point3(0,.75,-1), 0.35, Color(0.0 ,0.0 ,1.0));
+    //Sphere* middle = new Sphere(point3(0,0,-1), .5, Color(1.0 ,0.0 ,0.0));
+    //Sphere* butt = new Sphere(point3(0,-.6,-1), 0.65, Color(0.0 ,1.0 ,0.0));
+    //Triangle* nose1 = new Triangle(point3(0,.75,-.5),point3(.2,.75,-1), point3(0,.9,-1), Color(0.5, 0.25, 0.25));
+    //Triangle* nose2 = new Triangle(point3(0,.75,-.5),point3(-.2,.75,-1), point3(0,.9,-1), Color(0.5, 0.25, 0.25));
     
-    land->set_material(matte_green);
-    head->set_material(matte_blue);
-    middle->set_material(matte_red);
+    //land->set_material(matte_green);
+    head->set_material(matte_green);
+    /* middle->set_material(matte_red);
     butt->set_material(matte_blue);
     nose1->set_material(matte_crimson);
     nose2->set_material(matte_crimson);
-
+ */
     //add_object(land);
     add_object(head);
-    add_object(middle);
-    add_object(butt);
-    add_object(nose1);
+    //add_object(middle);
+    //add_object(butt);
+    //add_object(nose1);
     //add_object(nose2);
 
 
